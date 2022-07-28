@@ -819,4 +819,63 @@ Merge two sorted linked lists and return them as a sorted list. The list should 
 
 ![image](https://user-images.githubusercontent.com/59536110/181611426-111e8ca0-8c28-4743-9395-d28c792fcdd0.png)
 
+NodePtr merge_sorted(NodePtr head1, NodePtr head2) {
+  
+  // if both lists are empty then merged list is also empty
+  // if one of the lists is empty then other is the merged list
+  if (head1 == nullptr) {
+    return head2;
+  } else if (head2 == nullptr) {
+    return head1;
+  }
+
+
+  NodePtr mergedHead = nullptr;
+  if (head1->data <= head2->data) {
+    mergedHead = head1;
+    head1 = head1->next;
+  } else {
+    mergedHead = head2;
+    head2 = head2->next;
+  }
+
+  NodePtr mergedTail = mergedHead;
+  
+  while (head1 != nullptr && head2 != nullptr) {
+    NodePtr temp = nullptr;
+    if (head1->data <= head2->data) {
+      temp = head1;
+      head1 = head1->next;
+    } else {
+      temp = head2;
+      head2 = head2->next;
+    }
+
+    mergedTail->next = temp;
+    mergedTail = temp;
+  }
+
+  if (head1 != nullptr) {
+    mergedTail->next = head1;
+  } else if (head2 != nullptr) {
+    mergedTail->next = head2;
+  }
+
+  return mergedHead;
+}
+Runtime Complexity Linear, O(m + n) where m and n are lengths of both linked lists. 
+
+Memory Complexity Constant, O(1)
+
+Maintain a head and a tail pointer on the merged linked list. Then choose the head of the merged linked list by comparing the first node of both linked lists. For all subsequent nodes in both lists, you choose the smaller current node and link it to the tail of the merged list, moving the current pointer of that list one step forward.
+
+You keep doing this while there are some remaining elements in both lists. If there are still some elements in only one of the lists, you link this remaining list to the tail of the merged list.
+
+Initially, the merged linked list is NULL. Compare the value of the first two nodes and make the node with the smaller value the head node of the merged linked list. In this example, it is 4 from head1.
+
+Since it’s the first and only node in the merged list, it will also be the tail. Then move head1 one step forward.
+
+Conclusion
+C is the foundational language from which practically all other languages are built. C is the programming language's base. For writing system applications, it is a very popular and frequently used language. Even if new languages have surpassed it in popularity, it remains one of the most popular programming languages. The C questions listed here will aid you in interviews as well as improve your learning. I hope you found these to be helpful!
+
 
